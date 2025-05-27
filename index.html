@@ -1,77 +1,86 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>تهنئة خاصة</title>
-  <style>
-    body {
-      background-color: #000;
-      color: white;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      padding: 20px;
-      text-align: right;
-    }
-    .highlight-red {
-      color: red;
-      font-weight: bold;
-    }
-    .gift-button {
-      background-color: red;
-      color: white;
-      padding: 12px 25px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 10px;
-      text-align: center;
-      margin: 30px auto;
-      cursor: pointer;
-      width: fit-content;
-      transition: background-color 0.3s;
-    }
-    .gift-button:hover {
-      background-color: darkred;
-    }
-    .album {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      margin-top: 20px;
-    }
-    .album img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border: 2px solid white;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: border-color 0.3s ease;
-    }
-    .album img:hover {
-      border-color: red;
-    }
-    .main-image {
-      width: 100%;
-      max-height: 400px;
-      object-fit: contain;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      display: block;
-    }
-    audio {
-      display: block;
-      margin-top: 30px;
-      width: 100%;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>تهنئة خاصة</title>
+<style>
+  /* الصفحة كلها لون خلفية أسود */
+  body {
+    margin: 0;
+    background-color: #000;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    text-align: center;
+    direction: rtl;
+  }
+
+  /* الصورة الكبيرة تأخذ عرض وارتفاع كامل الشاشة */
+  #mainImage {
+    width: 100vw;
+    height: 70vh;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+
+  /* النص */
+  .message {
+    margin: 15px;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  /* نص بالأحمر */
+  .highlight-red {
+    color: red;
+    font-weight: bold;
+  }
+
+  /* زر افتح الهدية */
+  .gift-button {
+    background-color: red;
+    color: white;
+    padding: 10px 25px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 20px 0;
+  }
+
+  /* ألبوم الصور المصغرة */
+  .album {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px 0;
+  }
+
+  .album img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+
+  .album img:hover {
+    border-color: red;
+  }
+</style>
 </head>
 <body>
 
-<!-- الصورة الكبيرة -->
-<img id="mainImage" class="main-image" src="images/00000.jpg" alt="صورة كبيرة" />
+<!-- الصورة الرئيسية -->
+<img id="mainImage" src="images/photo1.jpg" alt="صورة كبيرة" />
 
-<!-- نص التهنئة -->
-<div>
+<!-- رسالة التهنئة -->
+<div class="message">
   إلى <span class="highlight-red">أميراتي الصغيرات</span>، بناتي الحبيبات:<br />
   كل ضحكة منكنّ تُزهر في قلبي ربيعاً لا ينتهي،<br />
   أنتم <span class="highlight-red">الأمل النقي</span>، و<span class="highlight-red">الحب الطاهر</span>، والحياة كما ينبغي أن تكون.<br />
@@ -81,29 +90,32 @@
   كل عام وأنتم بخير
 </div>
 
-<!-- زر الهدية -->
-<div class="gift-button" onclick="alert('شكراً لفتح الهدية!')">
+<!-- زر افتح الهدية -->
+<div class="gift-button" onclick="playAudio()">
   افتح الهدية
 </div>
 
-<!-- مشغل الصوت -->
-<audio controls>
-  <source src="gift.mp3" type="audio/mpeg">
-  المتصفح لا يدعم تشغيل الصوت.
-</audio>
-
 <!-- ألبوم الصور المصغرة -->
 <div class="album">
-  <img src="images/00000.jpg" alt="صورة 1" onclick="showImage('images/00000.jpg')" />
-  <img src="images/111111.jpg" alt="صورة 2" onclick="showImage('images/111111.jpg')" />
-  <img src="images/22222.jpg" alt="صورة 3" onclick="showImage('images/22222.jpg')" />
-  <img src="images/33333.jpg" alt="صورة 4" onclick="showImage('images/33333.jpg')" />
-  <img src="images/44444.jpg" alt="صورة 5" onclick="showImage('images/44444.jpg')" />
+  <img src="images/photo1_thumb.jpg" alt="صورة 1" onclick="showImage('images/photo1.jpg')" />
+  <img src="images/photo2_thumb.jpg" alt="صورة 2" onclick="showImage('images/photo2.jpg')" />
+  <img src="images/photo3_thumb.jpg" alt="صورة 3" onclick="showImage('images/photo3.jpg')" />
+  <img src="images/photo4_thumb.jpg" alt="صورة 4" onclick="showImage('images/photo4.jpg')" />
 </div>
 
+<!-- ملف الصوت -->
+<audio id="giftAudio" src="888000.mp3"></audio>
+
 <script>
+  // تغيير الصورة الكبيرة عند الضغط على صورة صغيرة
   function showImage(src) {
     document.getElementById('mainImage').src = src;
+  }
+
+  // تشغيل الصوت عند الضغط على زر "افتح الهدية"
+  function playAudio() {
+    var audio = document.getElementById('giftAudio');
+    audio.play();
   }
 </script>
 
