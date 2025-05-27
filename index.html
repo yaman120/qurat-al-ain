@@ -5,93 +5,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>تهنئة خاصة</title>
 <style>
-  /* الصفحة كلها لون خلفية أسود */
   body {
-    margin: 0;
     background-color: #000;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: white;
-    text-align: center;
-    direction: rtl;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    text-align: right;
   }
-
-  /* الصورة الكبيرة تأخذ عرض وارتفاع كامل الشاشة */
-  #mainImage {
-    width: 100vw;
-    height: 70vh;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto;
-    border-radius: 10px;
-  }
-
-  /* النص */
-  .message {
-    margin: 15px;
-    font-size: 18px;
-    line-height: 1.5;
-  }
-
-  /* نص بالأحمر */
   .highlight-red {
     color: red;
     font-weight: bold;
   }
-
-  /* زر افتح الهدية */
   .gift-button {
     background-color: red;
     color: white;
-    padding: 10px 25px;
+    width: fit-content;
+    padding: 10px 20px;
+    margin: 20px 0;
+    cursor: pointer;
     font-weight: bold;
     border-radius: 5px;
-    cursor: pointer;
+    user-select: none;
     display: inline-block;
-    margin: 20px 0;
   }
-
-  /* ألبوم الصور المصغرة */
   .album {
     display: flex;
-    justify-content: center;
     gap: 10px;
+    margin-top: 20px;
     overflow-x: auto;
-    padding: 10px 0;
   }
-
   .album img {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
     border: 2px solid white;
     border-radius: 5px;
     cursor: pointer;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s ease;
   }
-
   .album img:hover {
     border-color: red;
+  }
+  .main-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    display: block;
   }
 </style>
 </head>
 <body>
 
-<!-- الصورة الرئيسية -->
-<img id="mainImage" src="images/photo1.jpg" alt="صورة كبيرة" />
+<!-- الصورة الكبيرة -->
+<img id="mainImage" class="main-image" src="images/photo1.jpg" alt="صورة كبيرة" />
 
-<!-- رسالة التهنئة -->
-<div class="message">
+<!-- نص التهنئة -->
+<div>
   إلى <span class="highlight-red">أميراتي الصغيرات</span>، بناتي الحبيبات:<br />
   كل ضحكة منكنّ تُزهر في قلبي ربيعاً لا ينتهي،<br />
   أنتم <span class="highlight-red">الأمل النقي</span>، و<span class="highlight-red">الحب الطاهر</span>، والحياة كما ينبغي أن تكون.<br />
   وإلى رفيق عمري، <span class="highlight-red">زوجي الحبيب</span>:<br />
   أنت العيد الذي يتكرر في قلبي كل يوم،<br />
-  كل لحظة معك نعمة، وكل نظرة منك سلام.<br /><br />
+  كل لحظة معك نعمة، وكل نظرة منك سلام.<br />
+  <br />
   كل عام وأنتم بخير
 </div>
 
 <!-- زر افتح الهدية -->
-<div class="gift-button" onclick="playAudio()">
+<div class="gift-button" onclick="playGiftAudio()">
   افتح الهدية
 </div>
 
@@ -103,19 +86,17 @@
   <img src="images/photo4_thumb.jpg" alt="صورة 4" onclick="showImage('images/photo4.jpg')" />
 </div>
 
-<!-- ملف الصوت -->
-<audio id="giftAudio" src="888000.mp3"></audio>
+<!-- عنصر الصوت مخفي -->
+<audio id="giftAudio" src="gift.mp3"></audio>
 
 <script>
-  // تغيير الصورة الكبيرة عند الضغط على صورة صغيرة
   function showImage(src) {
     document.getElementById('mainImage').src = src;
   }
-
-  // تشغيل الصوت عند الضغط على زر "افتح الهدية"
-  function playAudio() {
-    var audio = document.getElementById('giftAudio');
+  function playGiftAudio() {
+    const audio = document.getElementById('giftAudio');
     audio.play();
+    alert('شكراً لفتح الهدية!');
   }
 </script>
 
