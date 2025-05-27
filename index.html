@@ -1,152 +1,80 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>تهنئة خاصة مع هدية</title>
-<style>
-  body {
-    background-color: #000;
-    color: white;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    padding: 20px;
-    text-align: right;
-  }
-  .highlight-red {
-    color: red;
-    font-weight: bold;
-  }
-  .gift-button {
-    background-color: red;
-    color: white;
-    width: fit-content;
-    padding: 10px 20px;
-    margin: 20px 0;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 5px;
-    user-select: none;
-  }
-  .album {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    margin-top: 20px;
-  }
-  .album img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border: 2px solid white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-  }
-  .album img:hover {
-    border-color: red;
-  }
-  .main-image {
-    width: 100%;
-    max-height: 400px;
-    object-fit: contain;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    display: block;
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>هدية لك</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: white;
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+    }
+    #mainImage {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: none;
+    }
+    #giftBtn {
+      margin-top: 20px;
+      padding: 15px 30px;
+      font-size: 20px;
+      background-color: #ff4081;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+    }
+    #content {
+      padding-top: 100px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
-<!-- الصورة الكبيرة -->
-<img id="mainImage" class="main-image" src="images/00000.jpg" alt="صورة كبيرة" />
+  <div id="content">
+    <h1>أهلاً بك في هديتك الخاصة!</h1>
+    <button id="giftBtn">افتح الهدية</button>
+  </div>
 
-<!-- نص التهنئة -->
-<div>
-  إلى <span class="highlight-red">أميراتي الصغيرات</span>، بناتي الحبيبات:<br />
-  كل ضحكة منكنّ تُزهر في قلبي ربيعاً لا ينتهي،<br />
-  أنتم <span class="highlight-red">الأمل النقي</span>، و<span class="highlight-red">الحب الطاهر</span>، والحياة كما ينبغي أن تكون.<br />
-  وإلى رفيق عمري، <span class="highlight-red">زوجي الحبيب</span>:<br />
-  أنت العيد الذي يتكرر في قلبي كل يوم،<br />
-  كل لحظة معك نعمة، وكل نظرة منك سلام.<br />
-  <br />
-  كل عام وأنتم بخير
-</div>
+  <img id="mainImage" src="" alt="هدية">
 
-<!-- زر افتح الهدية -->
-<div id="giftButton" class="gift-button">
-  افتح الهدية
-</div>
+  <audio id="audio" src="audio/gift.mp3"></audio>
 
-<!-- ألبوم الصور المصغرة -->
-<div class="album">
-  <img src="images/00000.jpg" alt="صورة 1" />
-  <img src="images/111111.jpg" alt="صورة 2" />
-  <img src="images/121111.jpg" alt="صورة 3" />
-  <img src="images/22111.jpg" alt="صورة 4" />
-  <img src="images/22222.jpg" alt="صورة 5" />
-  <img src="images/31111.jpg" alt="صورة 6" />
-  <img src="images/33333.jpg" alt="صورة 7" />
-  <img src="images/44444.jpg" alt="صورة 8" />
-  <img src="images/55555.jpg" alt="صورة 9" />
-  <img src="images/66666.jpg" alt="صورة 10" />
-  <img src="images/77777.jpg" alt="صورة 11" />
-  <img src="images/88888.jpg" alt="صورة 12" />
-  <img src="images/99999.jpg" alt="صورة 13" />
-</div>
+  <script>
+    const images = [
+      "images/00000.jpg", "images/111111.jpg", "images/121111.jpg",
+      "images/22111.jpg", "images/22222.jpg", "images/31111.jpg",
+      "images/33333.jpg", "images/44444.jpg", "images/55555.jpg",
+      "images/66666.jpg", "images/77777.jpg", "images/88888.jpg",
+      "images/99999.jpg"
+    ];
 
-<!-- ملف الصوت -->
-<audio id="giftAudio" src="audio/gift.mp3"></audio>
+    let currentIndex = 0;
 
-<script>
-  let currentIndex = 0;
-  let images = [
-    'images/00000.jpg',
-    'images/111111.jpg',
-    'images/121111.jpg',
-    'images/22111.jpg',
-    'images/22222.jpg',
-    'images/31111.jpg',
-    'images/33333.jpg',
-    'images/44444.jpg',
-    'images/55555.jpg',
-    'images/66666.jpg',
-    'images/77777.jpg',
-    'images/88888.jpg',
-    'images/99999.jpg'
-  ];
+    document.getElementById("giftBtn").addEventListener("click", () => {
+      const audio = document.getElementById("audio");
+      audio.play();
 
-  let intervalId = null;
+      document.getElementById("content").classList.add("hidden");
+      document.getElementById("giftBtn").classList.add("hidden");
 
-  function showImage(src) {
-    document.getElementById('mainImage').src = src;
-  }
+      const mainImage = document.getElementById("mainImage");
+      mainImage.src = images[currentIndex];
+      mainImage.style.display = "block";
 
-  function startSlideshow() {
-    intervalId = setInterval(() => {
-      currentIndex = (currentIndex + 1) % images.length;
-      showImage(images[currentIndex]);
-    }, 3000);
-  }
-
-  function stopSlideshow() {
-    clearInterval(intervalId);
-  }
-
-  document.getElementById('giftButton').addEventListener('click', () => {
-    const audio = document.getElementById('giftAudio');
-    audio.play();
-    showImage(images[0]);
-    startSlideshow();
-  });
-
-  document.querySelectorAll('.album img').forEach((img, index) => {
-    img.addEventListener('click', () => {
-      stopSlideshow();
-      currentIndex = index;
-      showImage(images[currentIndex]);
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        mainImage.src = images[currentIndex];
+      }, 4000);
     });
-  });
-</script>
+  </script>
 
 </body>
 </html>
