@@ -3,28 +3,35 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ألبوم الصور</title>
+<title>تهنئة خاصة مع هدية</title>
 <style>
   body {
     background-color: #000;
     color: white;
-    font-family: Arial, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     padding: 20px;
-    text-align: center;
+    text-align: right;
   }
-  .main-image {
-    width: 80%;
-    max-height: 400px;
-    object-fit: contain;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    border: 2px solid red;
+  .highlight-red {
+    color: red;
+    font-weight: bold;
+  }
+  .gift-button {
+    background-color: red;
+    color: white;
+    width: fit-content;
+    padding: 10px 20px;
+    margin: 20px 0;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    user-select: none;
   }
   .album {
     display: flex;
-    justify-content: center;
     gap: 10px;
     overflow-x: auto;
+    margin-top: 20px;
   }
   .album img {
     width: 80px;
@@ -38,39 +45,106 @@
   .album img:hover {
     border-color: red;
   }
+  .main-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: block;
+  }
 </style>
 </head>
 <body>
 
-<!-- الصورة الكبيرة الافتراضية -->
+<!-- الصورة الكبيرة -->
 <img id="mainImage" class="main-image" src="images/00000.jpg" alt="صورة كبيرة" />
 
-<!-- ألبوم الصور المصغرة -->
-<div class="album" id="album">
-  <!-- الصور ستضاف هنا تلقائياً -->
+<!-- نص التهنئة -->
+<div>
+  إلى <span class="highlight-red">أميراتي الصغيرات</span>، بناتي الحبيبات:<br />
+  كل ضحكة منكنّ تُزهر في قلبي ربيعاً لا ينتهي،<br />
+  أنتم <span class="highlight-red">الأمل النقي</span>، و<span class="highlight-red">الحب الطاهر</span>، والحياة كما ينبغي أن تكون.<br />
+  وإلى رفيق عمري، <span class="highlight-red">زوجي الحبيب</span>:<br />
+  أنت العيد الذي يتكرر في قلبي كل يوم،<br />
+  كل لحظة معك نعمة، وكل نظرة منك سلام.<br />
+  <br />
+  كل عام وأنتم بخير
 </div>
 
+<!-- زر افتح الهدية -->
+<div id="giftButton" class="gift-button">
+  افتح الهدية
+</div>
+
+<!-- ألبوم الصور المصغرة -->
+<div class="album">
+  <img src="images/00000.jpg" alt="صورة 1" />
+  <img src="images/111111.jpg" alt="صورة 2" />
+  <img src="images/121111.jpg" alt="صورة 3" />
+  <img src="images/22111.jpg" alt="صورة 4" />
+  <img src="images/22222.jpg" alt="صورة 5" />
+  <img src="images/31111.jpg" alt="صورة 6" />
+  <img src="images/33333.jpg" alt="صورة 7" />
+  <img src="images/44444.jpg" alt="صورة 8" />
+  <img src="images/55555.jpg" alt="صورة 9" />
+  <img src="images/66666.jpg" alt="صورة 10" />
+  <img src="images/77777.jpg" alt="صورة 11" />
+  <img src="images/88888.jpg" alt="صورة 12" />
+  <img src="images/99999.jpg" alt="صورة 13" />
+</div>
+
+<!-- ملف الصوت -->
+<audio id="giftAudio" src="audio/gift.mp3"></audio>
+
 <script>
-  // قائمة أسماء الصور (ممكن تحديثها تلقائياً في المستقبل)
-  const images = [
-    "00000.jpg", "111111.jpg", "121111.jpg", "22111.jpg", "22222.jpg",
-    "31111.jpg", "33333.jpg", "44444.jpg", "55555.jpg", "66666.jpg",
-    "77777.jpg", "88888.jpg", "99999.jpg"
+  let currentIndex = 0;
+  let images = [
+    'images/00000.jpg',
+    'images/111111.jpg',
+    'images/121111.jpg',
+    'images/22111.jpg',
+    'images/22222.jpg',
+    'images/31111.jpg',
+    'images/33333.jpg',
+    'images/44444.jpg',
+    'images/55555.jpg',
+    'images/66666.jpg',
+    'images/77777.jpg',
+    'images/88888.jpg',
+    'images/99999.jpg'
   ];
 
-  const albumDiv = document.getElementById('album');
-  const mainImage = document.getElementById('mainImage');
+  let intervalId = null;
 
-  // إنشاء صور مصغرة ديناميكياً
-  images.forEach(filename => {
-    const img = document.createElement('img');
-    img.src = 'images/' + filename;
-    img.alt = filename;
-    img.onclick = () => {
-      mainImage.src = img.src;
-      mainImage.alt = img.alt;
-    };
-    albumDiv.appendChild(img);
+  function showImage(src) {
+    document.getElementById('mainImage').src = src;
+  }
+
+  function startSlideshow() {
+    intervalId = setInterval(() => {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(images[currentIndex]);
+    }, 3000);
+  }
+
+  function stopSlideshow() {
+    clearInterval(intervalId);
+  }
+
+  document.getElementById('giftButton').addEventListener('click', () => {
+    const audio = document.getElementById('giftAudio');
+    audio.play();
+    showImage(images[0]);
+    startSlideshow();
+  });
+
+  document.querySelectorAll('.album img').forEach((img, index) => {
+    img.addEventListener('click', () => {
+      stopSlideshow();
+      currentIndex = index;
+      showImage(images[currentIndex]);
+    });
   });
 </script>
 
