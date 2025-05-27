@@ -91,6 +91,9 @@
   const giftButton = document.getElementById('giftButton');
   const giftAudio = document.getElementById('giftAudio');
 
+  // تكرار الأغنية بلا توقف
+  giftAudio.loop = true;
+
   giftButton.onclick = () => {
     giftAudio.play().catch(error => {
       console.log('تعذر تشغيل الصوت:', error);
@@ -102,6 +105,9 @@
       currentIndex = (currentIndex + 1) % images.length;
       mainImage.src = images[currentIndex];
     }, 4000);
+
+    // إخفاء زر "افتح الهدية" بعد الضغط عليه
+    giftButton.style.display = 'none';
   };
 </script>
 
