@@ -3,35 +3,27 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>تهنئة خاصة</title>
+<title>ألبوم الصور</title>
 <style>
   body {
     background-color: #000;
     color: white;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     padding: 20px;
-    text-align: right;
+    text-align: center;
   }
-  .highlight-red {
-    color: red;
-    font-weight: bold;
-  }
-  .gift-button {
-    background-color: red;
-    color: white;
-    width: fit-content;
-    padding: 10px 20px;
-    margin: 20px 0;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 5px;
-    user-select: none;
-    display: inline-block;
+  .main-image {
+    width: 80%;
+    max-height: 400px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 2px solid red;
   }
   .album {
     display: flex;
+    justify-content: center;
     gap: 10px;
-    margin-top: 20px;
     overflow-x: auto;
   }
   .album img {
@@ -46,58 +38,40 @@
   .album img:hover {
     border-color: red;
   }
-  .main-image {
-    width: 100%;
-    max-height: 400px;
-    object-fit: contain;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    display: block;
-  }
 </style>
 </head>
 <body>
 
-<!-- الصورة الكبيرة -->
-<img id="mainImage" class="main-image" src="images/photo1.jpg" alt="صورة كبيرة" />
-
-<!-- نص التهنئة -->
-<div>
-  إلى <span class="highlight-red">أميراتي الصغيرات</span>، بناتي الحبيبات:<br />
-  كل ضحكة منكنّ تُزهر في قلبي ربيعاً لا ينتهي،<br />
-  أنتم <span class="highlight-red">الأمل النقي</span>، و<span class="highlight-red">الحب الطاهر</span>، والحياة كما ينبغي أن تكون.<br />
-  وإلى رفيق عمري، <span class="highlight-red">زوجي الحبيب</span>:<br />
-  أنت العيد الذي يتكرر في قلبي كل يوم،<br />
-  كل لحظة معك نعمة، وكل نظرة منك سلام.<br />
-  <br />
-  كل عام وأنتم بخير
-</div>
-
-<!-- زر افتح الهدية -->
-<div class="gift-button" onclick="playGiftAudio()">
-  افتح الهدية
-</div>
+<!-- الصورة الكبيرة الافتراضية -->
+<img id="mainImage" class="main-image" src="images/00000.jpg" alt="صورة كبيرة" />
 
 <!-- ألبوم الصور المصغرة -->
-<div class="album">
-  <img src="images/photo1_thumb.jpg" alt="صورة 1" onclick="showImage('images/photo1.jpg')" />
-  <img src="images/photo2_thumb.jpg" alt="صورة 2" onclick="showImage('images/photo2.jpg')" />
-  <img src="images/photo3_thumb.jpg" alt="صورة 3" onclick="showImage('images/photo3.jpg')" />
-  <img src="images/photo4_thumb.jpg" alt="صورة 4" onclick="showImage('images/photo4.jpg')" />
+<div class="album" id="album">
+  <!-- الصور ستضاف هنا تلقائياً -->
 </div>
 
-<!-- عنصر الصوت مخفي -->
-<audio id="giftAudio" src="gift.mp3"></audio>
-
 <script>
-  function showImage(src) {
-    document.getElementById('mainImage').src = src;
-  }
-  function playGiftAudio() {
-    const audio = document.getElementById('giftAudio');
-    audio.play();
-    alert('شكراً لفتح الهدية!');
-  }
+  // قائمة أسماء الصور (ممكن تحديثها تلقائياً في المستقبل)
+  const images = [
+    "00000.jpg", "111111.jpg", "121111.jpg", "22111.jpg", "22222.jpg",
+    "31111.jpg", "33333.jpg", "44444.jpg", "55555.jpg", "66666.jpg",
+    "77777.jpg", "88888.jpg", "99999.jpg"
+  ];
+
+  const albumDiv = document.getElementById('album');
+  const mainImage = document.getElementById('mainImage');
+
+  // إنشاء صور مصغرة ديناميكياً
+  images.forEach(filename => {
+    const img = document.createElement('img');
+    img.src = 'images/' + filename;
+    img.alt = filename;
+    img.onclick = () => {
+      mainImage.src = img.src;
+      mainImage.alt = img.alt;
+    };
+    albumDiv.appendChild(img);
+  });
 </script>
 
 </body>
