@@ -1,80 +1,121 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>هدية لك</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: black;
-      color: white;
-      text-align: center;
-      font-family: 'Arial', sans-serif;
-    }
-    #mainImage {
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      display: none;
-    }
-    #giftBtn {
-      margin-top: 20px;
-      padding: 15px 30px;
-      font-size: 20px;
-      background-color: #ff4081;
-      border: none;
-      border-radius: 10px;
-      color: white;
-      cursor: pointer;
-    }
-    #content {
-      padding-top: 100px;
-    }
-    .hidden {
-      display: none;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>تهنئة خاصة</title>
+<style>
+  /* الخلفية تغطي الشاشة */
+  body, html {
+    margin: 0; padding: 0; height: 100%; width: 100%;
+    overflow: hidden;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    color: white;
+  }
+  /* النص فوق الصور */
+  .text-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    left: 20px;
+    background-color: rgba(0,0,0,0.5);
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 20px;
+    line-height: 1.5;
+    text-align: right;
+    text-shadow: 0 0 5px black;
+  }
+  /* زر فتح الهدية */
+  .gift-button {
+    position: absolute;
+    bottom: 30px;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: red;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 0 10px red;
+  }
+  .gift-button:active {
+    background-color: darkred;
+  }
+</style>
 </head>
 <body>
 
-  <div id="content">
-    <h1>أهلاً بك في هديتك الخاصة!</h1>
-    <button id="giftBtn">افتح الهدية</button>
-  </div>
+<!-- النص -->
+<div class="text-container" id="textContainer">
+  إلى <span style="color:red; font-weight:bold;">أميراتي الصغيرات</span>، بناتي الحبيبات:<br />
+  كل ضحكة منكنّ تُزهر في قلبي ربيعاً لا ينتهي،<br />
+  أنتم <span style="color:red; font-weight:bold;">الأمل النقي</span>، و<span style="color:red; font-weight:bold;">الحب الطاهر</span>، والحياة كما ينبغي أن تكون.<br />
+  وإلى رفيق عمري، <span style="color:red; font-weight:bold;">زوجي الحبيب</span>:<br />
+  أنت العيد الذي يتكرر في قلبي كل يوم،<br />
+  كل لحظة معك نعمة، وكل نظرة منك سلام.<br />
+  <br />
+  كل عام وأنتم بخير
+</div>
 
-  <img id="mainImage" src="" alt="هدية">
+<!-- زر فتح الهدية -->
+<button class="gift-button" id="giftBtn">افتح الهدية</button>
 
-  <audio id="audio" src="audio/gift.mp3"></audio>
+<!-- ملف الصوت -->
+<audio id="giftAudio" src="audio/gift.mp3"></audio>
 
-  <script>
-    const images = [
-      "images/00000.jpg", "images/111111.jpg", "images/121111.jpg",
-      "images/22111.jpg", "images/22222.jpg", "images/31111.jpg",
-      "images/33333.jpg", "images/44444.jpg", "images/55555.jpg",
-      "images/66666.jpg", "images/77777.jpg", "images/88888.jpg",
-      "images/99999.jpg"
-    ];
+<script>
+  const images = [
+    "images/00000.jpg",
+    "images/111111.jpg",
+    "images/121111.jpg",
+    "images/22111.jpg",
+    "images/22222.jpg",
+    "images/31111.jpg",
+    "images/33333.jpg",
+    "images/44444.jpg",
+    "images/55555.jpg",
+    "images/66666.jpg",
+    "images/77777.jpg",
+    "images/88888.jpg",
+    "images/99999.jpg"
+  ];
 
-    let currentIndex = 0;
+  let currentIndex = 0;
+  let intervalId = null;
+  const body = document.body;
+  const audio = document.getElementById('giftAudio');
+  const btn = document.getElementById('giftBtn');
 
-    document.getElementById("giftBtn").addEventListener("click", () => {
-      const audio = document.getElementById("audio");
+  // دالة لتغيير الخلفية
+  function changeBackground() {
+    body.style.backgroundImage = `url('${images[currentIndex]}')`;
+    currentIndex++;
+    if(currentIndex >= images.length) currentIndex = 0;
+  }
+
+  btn.addEventListener('click', () => {
+    // إذا ما بدأ التشغيل
+    if (!intervalId) {
+      changeBackground(); // أول صورة تظهر فوراً
       audio.play();
+      intervalId = setInterval(changeBackground, 4000); // تغير كل 4 ثواني
+      btn.disabled = true; // تعطل الزر بعد الضغط
+      btn.style.opacity = 0.6;
+    }
+  });
 
-      document.getElementById("content").classList.add("hidden");
-      document.getElementById("giftBtn").classList.add("hidden");
-
-      const mainImage = document.getElementById("mainImage");
-      mainImage.src = images[currentIndex];
-      mainImage.style.display = "block";
-
-      setInterval(() => {
-        currentIndex = (currentIndex + 1) % images.length;
-        mainImage.src = images[currentIndex];
-      }, 4000);
-    });
-  </script>
+  // تعيين الصورة الأولى كخلفية عند فتح الصفحة بدون تشغيل تلقائي
+  body.style.backgroundImage = `url('${images[0]}')`;
+</script>
 
 </body>
 </html>
