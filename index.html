@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>تهنئة العيد</title>
+<style>
+  body, html {
+    margin: 0; 
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background: url('111111.jpg') no-repeat center center/cover;
+    color: white;
+  }
+  .text-overlay {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.3);
+  }
+  #playBtn {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bffcc;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  #playBtn:hover {
+    background-color: #0056b3cc;
+  }
+</style>
+</head>
+<body>
+  <div class="text-overlay">
+    إلى أميراتي الصغيرات، بناتي الحبيبات:<br />
+    كل ضحكة منكنّ تُزهر في قلبي ربيعاً لا ينتهي،<br />
+    أنتم الأمل النقي، والحب الطاهر، والحياة كما ينبغي أن تكون.<br /><br />
+    وإلى رفيق عمري، زوجي الحبيب:<br />
+    أنت العيد الذي يتكرر في قلبي كل يوم،<br />
+    كل لحظة معك نعمة، وكل نظرة منك سلام.<br /><br />
+    كل عام وأنتم بخير
+  </div>
+
+  <button id="playBtn">افتح الهدية</button>
+
+  <audio id="myAudio" loop>
+    <source src="888000.mp3" type="audio/mpeg" />
+    المتصفح لا يدعم تشغيل الصوت.
+  </audio>
+
+  <script>
+    const playBtn = document.getElementById('playBtn');
+    const myAudio = document.getElementById('myAudio');
+
+    playBtn.addEventListener('click', () => {
+      if (myAudio.paused) {
+        myAudio.play();
+        playBtn.textContent = 'أوقف الهدية';
+      } else {
+        myAudio.pause();
+        playBtn.textContent = 'افتح الهدية';
+      }
+    });
+  </script>
+</body>
+</html>
